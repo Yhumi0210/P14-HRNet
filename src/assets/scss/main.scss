@@ -1,0 +1,26 @@
+// colors
+$dark-green: #5A6F07;
+$green: #6E860F;
+$light-green: #93AD18;
+$white: #FFFFFF;
+$black: #000000;
+$light-grey: #FBFCFD;
+
+// fonts
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+// thin 100, regular 400, bold 700
+
+* {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .logo {
+    width: 4rem;
+  }
+}
