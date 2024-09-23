@@ -1,4 +1,4 @@
-import logo from '../../assets/logo.png'
+// import logo from '../../assets/logo.png'
 import { Link } from 'react-router-dom'
 // import { useSelector } from 'react-redux'
 
@@ -7,12 +7,12 @@ export default function Header() {
 
 
     return (
-        <nav className="navbar">
+        <nav className="flex flex-row items-center justify-between px-32 h-20 bg-blend-normal">
             <Link to='/'>
-                <img src={logo} className="logo" alt="React logo" />
+                {/*<img src={logo} className="w-16" alt="React logo" />*/}
+                <h1 className='text-4xl hover:text-white'>HRNet</h1>
             </Link>
-            <h1>HRNet</h1>
-            <Link to='/CurrentEmployee'>View Current Employees</Link>
+            <Link to='/CurrentEmployee' className='hover:text-white'>View Current Employees</Link>
         </nav>
     )
 }
