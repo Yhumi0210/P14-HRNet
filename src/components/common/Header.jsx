@@ -1,10 +1,10 @@
 // import logo from '../../assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 // import { useSelector } from 'react-redux'
 
 export default function Header() {
     // const employees = useSelector(state => state.employee.data)
-
+    const location = useLocation()
 
     return (
         <nav className="flex flex-row items-center justify-between px-32 h-20 bg-blend-normal">
@@ -12,7 +12,13 @@ export default function Header() {
                 {/*<img src={logo} className="w-16" alt="React logo" />*/}
                 <h1 className='text-4xl hover:text-white'>HRNet</h1>
             </Link>
-            <Link to='/CurrentEmployee' className='hover:text-white'>View Current Employees</Link>
+            {location.pathname === '/' ? (
+                // Si on est sur la page "Create Employee", on affiche le lien vers "Current Employee"
+                <Link to='/CurrentEmployee' className='text-xl hover:text-white'>View Current Employees</Link>
+            ) : (
+                // Sinon on affiche le lien vers "Create Employee"
+                <Link to='/' className='text-xl hover:text-white'>Return to Create Employee</Link>
+            )}
         </nav>
     )
 }
