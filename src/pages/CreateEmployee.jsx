@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { initEmployees, addEmployee } from "../features/employeeSlice.js"
 import StateSelector from "../components/StateSelector.jsx"
+import DatePicker from "../components/DatePicker.jsx"
 
 export default function CreateEmployee() {
     // const employees = useSelector(state => state.employee.data)
@@ -47,14 +48,8 @@ export default function CreateEmployee() {
                                    onChange={handleChange} value={formData.lastName} id='lastName' />
                         </div>
                         <div className=' flex flex-col'>
-                            <label htmlFor="birthDate">Date of Birth</label>
-                            <input type="date" name="birthDate"
-                                   className='w-60 h-8 rounded-md shadow-lg shadow-emerald-500/50'
-                                   onChange={handleChange} value={formData.birthDate} id='birthDate' />
-                            <label htmlFor="startDate">Start Date</label>
-                            <input type="date" name="startDate"
-                                   className='w-60 h-8 rounded-md shadow-lg shadow-emerald-500/50'
-                                   onChange={handleChange} value={formData.startDate} id='startDate' />
+                            <DatePicker dateName={'Date of Birth'} dateLabel={'birthDate'} handleChange={handleChange} formData={formData.birthDate} />
+                            <DatePicker dateName={'Start Date'} dateLabel={'startDate'} handleChange={handleChange} formData={formData.startDate} />
                         </div>
                     </div>
 
@@ -101,6 +96,10 @@ export default function CreateEmployee() {
                 </form>
                 {/* Faut faire un composant à part entière pour la modal
                 <div id="confirmation" className="modal">Employee Created!</div>*/}
+                {/*{displayModal && <Modal handleClose={handleClose}/>}
+                elle doit avoir un prop fonction callback handleClose qui déclanche qu'elle passe à false quand on clique sur le bouton fermer
+
+                */}
             </div>
         </div>
     )

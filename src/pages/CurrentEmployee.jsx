@@ -24,6 +24,7 @@ export default function CurrentEmployees() {
                 </tr>
                 </thead>
                 <tbody>
+                {/* En faire un component avec filtre(barre de recherche) pagination et tri(alphabétique etc) */}
                 {employees.map((employee, index) => (
                     <tr key={index} className='h-10'>
                         <td className='border-2 border-emerald-400'>{employee.firstName}</td>
