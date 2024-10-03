@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* colors */
+:root {
+    --dark-green: #5A6F07;
+    --green: #6E860F;
+    --light-green: #93AD18;
+    --white: #FFFFFF;
+    --black: #000000;
+    --light-grey: #FBFCFD;
+}
+
+/* thin 100, regular 400, bold 700 */
+
+* {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to right top, rgb(167 243 208), rgb(16 185 129));
+    height: 100vh;
+    color: rgb(6 89 59);
+    font-weight: 700;
+}

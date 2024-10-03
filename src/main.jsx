@@ -4,7 +4,7 @@ import Header from './components/common/Header.jsx'
 import CurrentEmployee from './pages/CurrentEmployee.jsx'
 import CreateEmployee from './pages/CreateEmployee.jsx'
 import NotFound from './pages/NotFound.jsx'
-import './assets/scss/main.scss'
+import './assets/css/index.css'
 import { store } from './app/store'
 import { Provider } from 'react-redux'
 import {StrictMode} from "react";
