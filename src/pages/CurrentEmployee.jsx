@@ -3,6 +3,27 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import EmployeeTable from '../components/EmployeeTable.jsx'
 
+/**
+ * CurrentEmployees component renders a table of employees.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ * @property {number} entriesPerPage
+ * @property {number} paginatedEmployees
+ * @property {string} searchTerm
+ * @property {array} filteredEmployees
+ * @property {number} currentPage
+ * @property {object} sortConfig
+ * @property {function} handleEntriesChange
+ * @property {function} handleSearchChange
+ * @property {function} handleSort
+ * @property {function} handlePreviousPage
+ * @property {function} handleNextPage
+ * @property {function} startEntry
+ * @property {function} endEntry
+ * @property {function} totalEntries
+ *
+ */
 export default function CurrentEmployees() {
     const employees = useSelector((state) => state.employee.data)
     const [entriesPerPage, setEntriesPerPage] = useState(10) // État pour gérer le nombre de lignes affichées
@@ -11,6 +32,7 @@ export default function CurrentEmployees() {
     const [filteredEmployees, setFilteredEmployees] = useState([]) // État pour gérer les employés filtrés
     const [currentPage, setCurrentPage] = useState(1) // État pour gérer la page actuelle
     const [sortConfig, setSortConfig] = useState({ key: '', direction: '' }) // État pour gérer le tri
+    const labelsAndKeys = [['First Name', 'firstName'], ['Last Name', 'lastName'], ['Start Date', 'startDate'], ['Department', 'department'], ['Birth Date', 'birthDate'], ['Street', 'street'], ['City', 'city'], ['State', 'state'], ['Zip Code', 'zipCode']]
 
     // Gestion du changement de nombre d'entrées à afficher
     const handleEntriesChange = (e) => {
@@ -35,6 +57,9 @@ export default function CurrentEmployees() {
 
     // Filtrer et trier les employés
     useEffect(() => {
+
+        // à voir si je peux pas diviser en plusieurs useEffect
+
         // Filtrer les employés selon la barre de recherche
         let filteredData = employees.filter((employee) =>
             Object.values(employee).some((value) =>
@@ -54,7 +79,6 @@ export default function CurrentEmployees() {
                 return 0
             })
         }
-
         setFilteredEmployees(filteredData)
 
         // Calculer les employés pour la page actuelle
@@ -63,7 +87,7 @@ export default function CurrentEmployees() {
         const paginatedData = filteredData.slice(startIndex, endIndex)
         setPaginatedEmployees(paginatedData)
 
-    }, [employees, searchTerm, entriesPerPage, currentPage, sortConfig]) // Retirer sortedEmployees des dépendances
+    }, [employees, searchTerm, entriesPerPage, currentPage, sortConfig])
 
     // Calcul des index pour l'affichage du message "Showing X to Y of Z entries"
     const startEntry = filteredEmployees.length === 0 ? 0 : (currentPage - 1) * entriesPerPage + 1
@@ -114,66 +138,23 @@ export default function CurrentEmployees() {
             </div>
             <div
                 className='bg-white p-2 flex flex-col text-center mt-4 text-xl rounded-md shadow-lg shadow-emerald-500/50'>
-                <table>
-                    <thead className='bg-emerald-400 border-2 border-emerald-400 h-12'>
-                    <tr className=''>
-                        <th className='cursor-pointer' onClick={() => handleSort('firstName')}>
-                            First Name <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('lastName')}>
-                            Last Name <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('startDate')}>
-                            Start Date <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('department')}>
-                            Department <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('birthDate')}>
-                            Date of Birth <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('street')}>
-                            Street <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('city')}>
-                            City <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('state')}>
-                            State <div>▲▼</div>
-                        </th>
-                        <th className='cursor-pointer' onClick={() => handleSort('zipCode')}>
-                            Zip Code <div>▲▼</div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {/* Vérifie s'il y a des datas, sinon affiche le message "No data available" */}
-                    {paginatedEmployees.length > 0 ? (
-                        paginatedEmployees.map((employee, index) => (
-                            <EmployeeTable key={index} employee={employee} />
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="9" className="text-center py-4">
-                                No data available in table
-                            </td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
+                <EmployeeTable paginatedEmployees={paginatedEmployees} handleSort={handleSort} labelsAndKeys={labelsAndKeys} />
 
+
+                {/* COMPOSANT */}
                 {/* Message "Showing X to Y of Z entries" */}
                 <div className='mt-4 flex justify-between items-center'>
                     <p>
                         Showing {startEntry} to {endEntry} of {totalEntries} entries
                     </p>
-                    <div className=''>
+                    <div className='flex flex-row items-center'>
                         <button
                             onClick={handlePreviousPage}
                             disabled={currentPage === 1}
-                            className='p-2 w-28 rounded-md bg-gradient-to-r from-white to-white hover:from-white hover:to-white hover:text-white shadow-lg shadow-emerald-500/50'>
+                            className='p-2 w-28 rounded-md bg-gradient-to-r from-white to-white hover:from-white hover:to-teal-400 hover:text-white shadow-lg shadow-emerald-500/50'>
                             Previous
                         </button>
+                        <p className='p-2 text-white text-xl rounded-md bg-gradient-to-r from-emerald-400 to-teal-400'>{currentPage}</p>
                         <button
                             onClick={handleNextPage}
                             disabled={currentPage === Math.ceil(totalEntries / entriesPerPage)}

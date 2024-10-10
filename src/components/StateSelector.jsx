@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 
 
 /**
- * StateSelector component renders a dropdown list of U.S. states for selection.
- *
- * @param {Object} props
- * @param {function} props.onChange
- * @param {string} props.value
- *
+ * StateSelector component renders a dropdown list of U.S. states for selection
+ * @param onChange
+ * @param value
  * @returns {JSX.Element}
+ * @constructor
+ * @property {function} onChange
+ * @property {string} value
+ *
  */
 export default function StateSelector({ onChange, value}) {
     return (
